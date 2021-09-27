@@ -1,0 +1,6 @@
+-cp src
+-lib heaps
+-js release/tacticslight.js
+-D windowSize=640x360
+-main Main
+-debug
