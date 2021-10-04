@@ -1,6 +1,7 @@
 -cp src
 -lib heaps
 -js release/tacticslight.js
--D windowSize=640x360
--main Main
+-main Game
+-D windowSize=832x832
+-dce full
 -debug
