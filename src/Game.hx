@@ -41,6 +41,7 @@ class Game extends hxd.App
         allSystems.add(new PositionSystem());
         allSystems.add(new MovementSystem());
         allSystems.add(new TileSystem());
+        allSystems.add(new ScaleSystem());
 
         // load entities
         allSystems.add(new LoadLevelSystem());
