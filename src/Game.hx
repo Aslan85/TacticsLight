@@ -1,6 +1,7 @@
 import h2d.Scene;
 import dig.utils.*;
 import systems.*;
+import hxd.Key;
 
 class Game extends hxd.App
 {
@@ -30,27 +31,30 @@ class Game extends hxd.App
         this.scene = s2d;
 
         // init systems
-        allSystems = InitSystems();
+        initSystems();
     }
 
-    private function InitSystems():List<dig.ecs.System>
+    private function initSystems()
     {
-        var systems = new List<dig.ecs.System>();
+        // update
+        allSystems.add(new PositionSystem());
+        allSystems.add(new MovementSystem());
 
         // init
-        systems.add(new LoadLevelSystem());
+        allSystems.add(new LoadLevelSystem());
+    }
 
-        // update
-        systems.add(new PositionSystem());
-        systems.add(new MovementSystem());
-
-        return systems;
+    public function refreshSystems()
+    {
+        // refresh all entities use in system
+        for(system in allSystems)
+        {
+            system.refreshEntities(allEntities);
+        }
     }
 
     override function update(dt:Float) 
     {
-        var i = allSystems.length;
-
         // update
         for(system in allSystems)
         {
@@ -61,6 +65,15 @@ class Game extends hxd.App
         for(system in allSystems)
         {
             system.lateUpdate(dt);
+        }
+
+        // create entity
+        if(Key.isReleased(Key.N))
+        {
+            var ent = new dig.ecs.Entity(Game.inst.getScene(), "first");
+            new components.PositionComponent(ent, 200, 200);
+            //new components.VelocityComponent(ent, 60, 0);
+            new components.TileComponent(ent, hxd.Res.White_Square.toTile());
         }
     }
 

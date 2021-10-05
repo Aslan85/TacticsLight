@@ -22,12 +22,16 @@ class Entity
     {
         trace("add component " +c.name);
         components.add(c);
+
+        Game.inst.refreshSystems();
     }
 
     public function removeComponent(c:Component)
     {
         trace("remove component " +c.name);
         components.remove(c);
+
+        Game.inst.refreshSystems();
     }
 
     public function getComponent(name:String):Component

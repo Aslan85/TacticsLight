@@ -7,8 +7,8 @@ class PositionComponent extends dig.ecs.Component
 
     public override function new(entity:dig.ecs.Entity, x:Float, y:Float)
     {
-        super(entity, "PositionComponent");
         this.x = x;
         this.y = y;
+        super(entity, "PositionComponent");
     }
 }

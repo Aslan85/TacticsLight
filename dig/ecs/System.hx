@@ -6,6 +6,11 @@ class System
     {
     }
 
+    public function refreshEntities(entities:List<Entity>):Void
+    {
+        return;
+    }
+
     public function update(dt:Float):Void
     {
         return;
