@@ -1,10 +1,13 @@
 package dig.ecs;
 
+import components.VelocityComponent;
+
 class Entity
 {
     public var components = new List<Component>();
-    public var scene : h2d.Scene;
-    public var obj : h2d.Object;
+    public var scene:h2d.Scene;
+    public var obj:h2d.Object;
+    public var bmp:h2d.Bitmap;
     public var name:String;
 
     public function new(scene:h2d.Scene, name:String = "Entity")

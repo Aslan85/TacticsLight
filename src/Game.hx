@@ -1,3 +1,4 @@
+import dig.ecs.Component;
 import h2d.Scene;
 import dig.utils.*;
 import systems.*;
@@ -39,8 +40,9 @@ class Game extends hxd.App
         // update
         allSystems.add(new PositionSystem());
         allSystems.add(new MovementSystem());
+        allSystems.add(new TileSystem());
 
-        // init
+        // load entities
         allSystems.add(new LoadLevelSystem());
     }
 
@@ -67,13 +69,20 @@ class Game extends hxd.App
             system.lateUpdate(dt);
         }
 
-        // create entity
+        // create test entity to activate/deactivate tile
         if(Key.isReleased(Key.N))
         {
-            var ent = new dig.ecs.Entity(Game.inst.getScene(), "first");
-            new components.PositionComponent(ent, 200, 200);
-            //new components.VelocityComponent(ent, 60, 0);
-            new components.TileComponent(ent, hxd.Res.White_Square.toTile());
+            for(ent in allEntities)
+            {
+                if(ent.hasComponent("TileComponent"))
+                {
+                    ent.removeComponent(cast(ent.getComponent("TileComponent"), Component));
+                }
+                else
+                {
+                    new components.TileComponent(ent, hxd.Res.White_Square.toTile());
+                }
+            }
         }
     }
 
