@@ -76,4 +76,29 @@ class Vector2
             a.x * sin + a.y * sin
         );
     }
+
+    public static function zero():Vector2
+    {
+        return new Vector2(0, 0);
+    }
+
+    public static function up():Vector2
+    {
+        return new Vector2(0, 1);
+    }
+
+    public static function down():Vector2
+    {
+        return new Vector2(0, -1);
+    }
+
+    public static function left():Vector2
+    {
+        return new Vector2(-1, 0);
+    }
+
+    public static function right():Vector2
+    {
+        return new Vector2(1, 0);
+    }
 }

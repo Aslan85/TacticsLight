@@ -1,7 +1,5 @@
 package dig.ecs;
 
-import components.VelocityComponent;
-
 class Entity
 {
     public var components = new List<Component>();
@@ -12,7 +10,7 @@ class Entity
 
     public function new(scene:h2d.Scene, name:String = "Entity")
     {
-        trace("Create new Entity");
+        trace("Create new Entity : " +name);
         this.scene = scene;
         this.name = name;
 
@@ -23,7 +21,7 @@ class Entity
 
     public function addComponent(c:Component)
     {
-        trace("add component " +c.name);
+        trace("add component " +c.name +" to " +this.name);
         components.add(c);
 
         Game.inst.refreshSystems();
@@ -31,7 +29,7 @@ class Entity
 
     public function removeComponent(c:Component)
     {
-        trace("remove component " +c.name);
+        trace("remove component " +c.name +" to " +this.name);
         components.remove(c);
 
         Game.inst.refreshSystems();
