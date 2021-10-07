@@ -1,7 +1,19 @@
+# Compile html
 -cp src
 -lib heaps
 -js release/tacticslight.js
 -main Game
--D windowSize=832x832
+-D windowSize=1280x720
 -dce full
 -debug
+
+# Compile Hashlink
+#-cp src
+#-lib heaps
+#-lib hlsdl 
+#### -lib hldx
+#-hl release/tacticslight.hl
+#-D windowSize=1280x720
+#-dce full
+#-main Game
+#-debug

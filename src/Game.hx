@@ -7,6 +7,7 @@ import hxd.Key;
 class Game extends hxd.App
 {
     public static var inst:Game;
+    public static var debugMode:Bool;
     public static var allSystems = new List<dig.ecs.System>();
     public static var allEntities = new List<dig.ecs.Entity>();
 
@@ -18,6 +19,7 @@ class Game extends hxd.App
 
     static function main()
     {
+        debugMode = false;
         hxd.Res.initEmbed();
         inst = new Game();
     }
@@ -59,6 +61,12 @@ class Game extends hxd.App
 
     override function update(dt:Float) 
     {
+        // active/deactive debug info
+        if(Key.isReleased(Key.D))
+        {
+            debugMode != debugMode;
+        }
+
         // update
         for(system in allSystems)
         {
@@ -71,7 +79,7 @@ class Game extends hxd.App
             system.lateUpdate(dt);
         }
 
-        // create test entity to activate/deactivate tile
+        // for test - create entity to activate/deactivate tile component
         if(Key.isReleased(Key.N))
         {
             for(e in allEntities)
