@@ -1,6 +1,5 @@
 package systems;
-import dig.utils.Vector2;
-import dig.utils.Grid;
+import dig.utils.*;
 import dig.ecs.*;
 import components.*;
 
@@ -20,7 +19,7 @@ class LoadLevelSystem extends dig.ecs.System
             cell.addComponent(new PositionComponent(x *cellSize +originVector.x, y*cellSize +originVector.y));
             cell.addComponent(new TileComponent(hxd.Res.White_Square.toTile()));
 
-            var colorWhite:h3d.Vector = new h3d.Vector(1, 1, 1, 0.9);
+            var colorWhite:h3d.Vector = new h3d.Vector(0.9, 0.9, 0.9, 1);
             var colorBlack:h3d.Vector = new h3d.Vector(0.2, 0.2, 0.2, 1); 
             if((x%2 == 0 && y%2 == 0) || (x%2 != 0 && y%2 != 0))
             {
@@ -33,10 +32,5 @@ class LoadLevelSystem extends dig.ecs.System
         });
         
         super();
-    }
-
-    private function randomNumber(from:Float, to:Float):Float
-    {
-        return from + Math.floor(((to - from + 1) * Math.random()));
     }
 }
