@@ -14,8 +14,9 @@ class LoadLevelSystem extends dig.ecs.System
         var grid:Grid<Entity> = new Grid(BW, BH, CS, OV, function(g:Grid<Entity>, x:Int, y:Int)
         {
             var cell = new Entity(Game.inst.getScene(), "cell_" +x +"_" +y);
-            new components.PositionComponent(cell, x *CS, y*CS);
-            new components.TileComponent(cell, hxd.Res.White_Square.toTile());
+            cell.addComponent(new components.PositionComponent(x *CS, y*CS));
+            cell.addComponent(new components.TileComponent(hxd.Res.White_Square.toTile()));
+            //cell.addComponent(new components.VelocityComponent(10 + Math.floor(((30 - 10 + 1) * Math.random())), 10 + Math.floor(((30 - 10 + 1) * Math.random()))));
         });
         
         super();

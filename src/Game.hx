@@ -81,7 +81,7 @@ class Game extends hxd.App
                 }
                 else
                 {
-                    new components.TileComponent(ent, hxd.Res.White_Square.toTile());
+                    ent.addComponent(new components.TileComponent(hxd.Res.White_Square.toTile()));
                 }
             }
         }
