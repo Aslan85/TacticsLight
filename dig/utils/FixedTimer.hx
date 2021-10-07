@@ -1,5 +1,4 @@
 package dig.utils;
-
 import haxe.Timer;
 
 class FixedTimer extends Timer

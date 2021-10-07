@@ -73,15 +73,15 @@ class Game extends hxd.App
         // create test entity to activate/deactivate tile
         if(Key.isReleased(Key.N))
         {
-            for(ent in allEntities)
+            for(e in allEntities)
             {
-                if(ent.hasComponent("TileComponent"))
+                if(e.hasComponent("TileComponent"))
                 {
-                    ent.removeComponent(cast(ent.getComponent("TileComponent"), Component));
+                    e.removeComponentByName("TileComponent");
                 }
                 else
                 {
-                    ent.addComponent(new components.TileComponent(hxd.Res.White_Square.toTile()));
+                    e.addComponent(new components.TileComponent(hxd.Res.White_Square.toTile()));
                 }
             }
         }

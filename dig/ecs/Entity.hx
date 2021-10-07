@@ -35,6 +35,11 @@ class Entity
         Game.inst.refreshSystems();
     }
 
+    public function removeComponentByName(name:String)
+    {
+        removeComponent(cast(this.getComponent(name), Component));
+    }
+
     public function getComponent(name:String):Component
     {
         var component = components.filter(function(c) return c.name == name);
