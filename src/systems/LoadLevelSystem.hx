@@ -8,18 +8,28 @@ class LoadLevelSystem extends dig.ecs.System
 {
     public override function new()
     {
-        var BW:Int = 8;
-        var BH:Int = 5;
-        var CS:Float = 66;
-        var OV:Vector2 = Vector2.zero();
-        var grid:Grid<Entity> = new Grid(BW, BH, CS, OV, function(g:Grid<Entity>, x:Int, y:Int)
+        var boardWith:Int = 8;
+        var boardHeight:Int = 5;
+        var tileSize:Int = 64;
+        var tileMargin:Int = 2;
+        var cellSize:Float = tileSize + tileMargin;
+        var originVector:Vector2 = new Vector2(Game.inst.s2d.width/2 - cellSize*boardWith/2, Game.inst.s2d.height/2 -cellSize*boardHeight/2);
+        var grid:Grid<Entity> = new Grid(boardWith, boardHeight, cellSize, originVector, function(g:Grid<Entity>, x:Int, y:Int)
         {
             var cell = new Entity(Game.inst.getScene(), "cell_" +x +"_" +y);
-            cell.addComponent(new PositionComponent(x *CS, y*CS));
+            cell.addComponent(new PositionComponent(x *cellSize +originVector.x, y*cellSize +originVector.y));
             cell.addComponent(new TileComponent(hxd.Res.White_Square.toTile()));
-            cell.addComponent(new ColorComponent(new h3d.Vector(randomNumber(0.1, 1), randomNumber(0.1, 1), randomNumber(0.1, 1), 1)));
-            //cell.addComponent(new VelocityComponent(randomNumber(10, 30), randomNumber(10, 30)));
-            //cell.addComponent(new ScaleComponent(randomNumber(0.2, 1), 0.1 + randomNumber(0.2, 1)));
+
+            var colorWhite:h3d.Vector = new h3d.Vector(1, 1, 1, 0.9);
+            var colorBlack:h3d.Vector = new h3d.Vector(0.2, 0.2, 0.2, 1); 
+            if((x%2 == 0 && y%2 == 0) || (x%2 != 0 && y%2 != 0))
+            {
+                cell.addComponent(new ColorComponent(colorWhite));
+            }
+            else
+            {
+                cell.addComponent(new ColorComponent(colorBlack));
+            }
         });
         
         super();
