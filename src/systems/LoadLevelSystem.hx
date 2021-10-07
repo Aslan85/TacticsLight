@@ -1,8 +1,8 @@
 package systems;
-import components.ScaleComponent;
 import dig.utils.Vector2;
 import dig.utils.Grid;
 import dig.ecs.*;
+import components.*;
 
 class LoadLevelSystem extends dig.ecs.System
 {
@@ -15,12 +15,18 @@ class LoadLevelSystem extends dig.ecs.System
         var grid:Grid<Entity> = new Grid(BW, BH, CS, OV, function(g:Grid<Entity>, x:Int, y:Int)
         {
             var cell = new Entity(Game.inst.getScene(), "cell_" +x +"_" +y);
-            cell.addComponent(new components.PositionComponent(x *CS, y*CS));
-            cell.addComponent(new components.TileComponent(hxd.Res.White_Square.toTile()));
-            //cell.addComponent(new components.VelocityComponent(10 + Math.floor(((30 - 10 + 1) * Math.random())), 10 + Math.floor(((30 - 10 + 1) * Math.random()))));
-            //cell.addComponent(new components.ScaleComponent(0.1 + Math.floor(((1.2 - 0.1 + 1) * Math.random())), 0.1 + Math.floor(((1.2 - 0.1 + 1) * Math.random()))));
+            cell.addComponent(new PositionComponent(x *CS, y*CS));
+            cell.addComponent(new TileComponent(hxd.Res.White_Square.toTile()));
+            cell.addComponent(new ColorComponent(new h3d.Vector(randomNumber(0.1, 1), randomNumber(0.1, 1), randomNumber(0.1, 1), 1)));
+            //cell.addComponent(new VelocityComponent(randomNumber(10, 30), randomNumber(10, 30)));
+            //cell.addComponent(new ScaleComponent(randomNumber(0.2, 1), 0.1 + randomNumber(0.2, 1)));
         });
         
         super();
+    }
+
+    private function randomNumber(from:Float, to:Float):Float
+    {
+        return from + Math.floor(((to - from + 1) * Math.random()));
     }
 }

@@ -37,7 +37,7 @@ class Entity
 
     public function removeComponentByName(name:String)
     {
-        removeComponent(cast(this.getComponent(name), Component));
+        removeComponent(cast(getComponent(name), Component));
     }
 
     public function getComponent(name:String):Component
