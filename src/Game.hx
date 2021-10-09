@@ -1,4 +1,3 @@
-import dig.ecs.Component;
 import h2d.Scene;
 import dig.utils.*;
 import systems.*;
@@ -16,11 +15,18 @@ class Game extends hxd.App
     public static var fixedTimer:FixedTimer;
 
     public var scene:Scene;
+    public var hud:Hud;
 
     static function main()
     {
+		#if hl
+		hxd.res.Resource.LIVE_UPDATE = true;
+        hxd.Res.initLocal();
+		#else
+		hxd.Res.initEmbed();
+		#end
+
         debugMode = false;
-        hxd.Res.initEmbed();
         inst = new Game();
     }
 
@@ -35,6 +41,9 @@ class Game extends hxd.App
 
         // init systems
         initSystems();
+
+        // add UI
+        hud = new Hud(s2d);
     }
 
     private function initSystems()
@@ -78,6 +87,9 @@ class Game extends hxd.App
         {
             system.lateUpdate(dt);
         }
+
+        // update UI
+        hud.update(dt);
 
         // for test - create entity to activate/deactivate tile component
         if(Key.isReleased(Key.N))

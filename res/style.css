@@ -1,0 +1,24 @@
+.mybox
+{
+	background: #354;
+	height: 50;
+}
+
+view.mybox
+{
+	padding: 25;
+}
+
+container
+{
+	max-width: 200;
+	layout: vertical;
+}
+
+label
+{
+	background: #222;
+	fill-width: true;
+	height: 30;
+	padding: 20;
+}
