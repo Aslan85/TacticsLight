@@ -12,6 +12,11 @@ This game is made with [Heaps.io](https://heaps.io/), a mature cross platform gr
 
 You can use this [installation tutorial](https://heaps.io/documentation/installation.html) to setup the project.
 
+## Branches
+
+**main** is the most recent playable version of the game.
+**develop** is in constant evolution and contains the last update.
+
 ## Play
 
 You can play the game on this [itch.io account](https://aslan85.itch.io/tactics-light).
