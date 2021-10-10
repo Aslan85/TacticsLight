@@ -2,6 +2,7 @@ import h2d.Scene;
 import dig.utils.*;
 import systems.*;
 import hxd.Key;
+import dig.ecs.*;
 
 class Game extends hxd.App
 {
@@ -44,18 +45,21 @@ class Game extends hxd.App
 
         // add UI
         hud = new Hud(s2d);
+
+        // load testing level
+        var level = new Entity(Game.inst.getScene(), "loadLevel");
+        level.addComponent(new components.LoadLevelComponent());
+        level.kill();
     }
 
     private function initSystems()
     {
-        // update
+        // active systems
         allSystems.add(new PositionSystem());
         allSystems.add(new MovementSystem());
         allSystems.add(new TileSystem());
         allSystems.add(new ScaleSystem());
         allSystems.add(new ColorSystem());
-
-        // load entities
         allSystems.add(new LoadLevelSystem());
     }
 

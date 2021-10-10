@@ -49,6 +49,7 @@ class TileSystem extends dig.ecs.System
         {
             var t = cast(entity.getComponent("TileComponent"), components.TileComponent);
             entity.bmp = new Bitmap(t.tile, entity.obj);
+            //entity.bmp.tile = entity.bmp.tile.center();
         }
     }
 

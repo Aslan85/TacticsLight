@@ -60,6 +60,11 @@ class Entity
         return false;
     }
 
+    public function howManyComponents():Int
+    {
+        return components.length;
+    }
+
     public function kill()
     {
         Game.allEntities.remove(this);
