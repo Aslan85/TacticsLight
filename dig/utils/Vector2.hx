@@ -84,12 +84,12 @@ class Vector2
 
     public static function up():Vector2
     {
-        return new Vector2(0, 1);
+        return new Vector2(0, -1);
     }
 
     public static function down():Vector2
     {
-        return new Vector2(0, -1);
+        return new Vector2(0, 1);
     }
 
     public static function left():Vector2

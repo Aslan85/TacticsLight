@@ -54,7 +54,7 @@ class Grid<TGridObject>
 
     public function SetGridObject(x:Int, y:Int, value:TGridObject):Void
     {
-        if(x >= 0 && y >= 0 && x < width && y < height)
+        if(IsOnGrid(x, y))
         {
             gridArray[x][y] = value;
         }
@@ -68,7 +68,7 @@ class Grid<TGridObject>
 
     public function GetGridObject(x:Int, y:Int):TGridObject
     {
-        if (x >= 0 && y >= 0 && x < width && y < height)
+        if(IsOnGrid(x, y))
         {
             return gridArray[x][y];
         }
@@ -79,6 +79,18 @@ class Grid<TGridObject>
     {
         var xyPos:Vector2 = GetXY(worldPosition);
         return GetGridObject(Math.floor(xyPos.x), Math.floor(xyPos.y));
+    }
+
+    public function GetGridPositionFromWorldPosition(worldPosition:Vector2):Vector2
+    {
+        var xyPos:Vector2 = GetXY(worldPosition);
+        var x = Math.floor(xyPos.x);
+        var y = Math.floor(xyPos.y);
+        if(IsOnGrid(x, y))
+        {
+            return new Vector2(x, y);
+        }
+        return null;
     }
 
     public function GetListAllCells():List<TGridObject>
@@ -122,5 +134,12 @@ class Grid<TGridObject>
         }
 
         return neighbourList;
+    }
+
+    public function IsOnGrid(x:Int, y:Int):Bool
+    {
+        if(x >= 0 && y >= 0 && x < width && y < height)
+            return true;
+        return false;
     }
 }

@@ -17,6 +17,8 @@ class Game extends hxd.App
 
     public var scene:Scene;
     public var hud:Hud;
+    public var grid:Grid<Entity>;
+    public var gridOriginVector:Vector2;
 
     static function main()
     {
@@ -47,6 +49,7 @@ class Game extends hxd.App
         hud = new Hud(s2d);
 
         // load testing level
+        gridOriginVector = new Vector2(s2d.width/2 - Const.cellSize*Const.boardWith/2, s2d.height/2 -Const.cellSize*Const.boardHeight/2);
         var level = new InitGame();
         level.loadLevel(this.scene);
     }
@@ -55,7 +58,6 @@ class Game extends hxd.App
     {
         // Characters
         allSystems.add(new PositionSystem());
-        //allSystems.add(new MovementSystem());
         allSystems.add(new TileSystem());
         allSystems.add(new ScaleSystem());
         allSystems.add(new ColorSystem());
@@ -63,6 +65,9 @@ class Game extends hxd.App
         // Input
         allSystems.add(new EmitInputSystem());
         allSystems.add(new ProcessInputSystem());
+
+        // Gameplay
+        allSystems.add(new GridMovementSystem());
     }
 
     public function refreshSystems()
@@ -96,22 +101,6 @@ class Game extends hxd.App
 
         // update UI
         hud.update(dt);
-
-        // for test - create entity to activate/deactivate tile component
-        if(Key.isReleased(Key.N))
-        {
-            for(e in allEntities)
-            {
-                if(e.hasComponent("TileComponent"))
-                {
-                    e.removeComponentByName("TileComponent");
-                }
-                else
-                {
-                    e.addComponent(new components.TileComponent(hxd.Res.White_Square.toTile()));
-                }
-            }
-        }
     }
 
     public function fixedUpdate()

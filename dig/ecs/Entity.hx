@@ -69,5 +69,6 @@ class Entity
     {
         Game.allEntities.remove(this);
         Game.inst.refreshSystems();
+        trace("Kill Entity : " +name);
     }
 }
