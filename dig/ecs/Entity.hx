@@ -68,5 +68,6 @@ class Entity
     public function kill()
     {
         Game.allEntities.remove(this);
+        Game.inst.refreshSystems();
     }
 }

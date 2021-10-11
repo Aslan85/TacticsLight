@@ -1,6 +1,6 @@
 package components;
 
-class LoadLevelComponent extends dig.ecs.Component
+class ActComponent extends dig.ecs.Component
 {
     public override function new()
     {

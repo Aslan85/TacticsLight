@@ -47,20 +47,22 @@ class Game extends hxd.App
         hud = new Hud(s2d);
 
         // load testing level
-        var level = new Entity(Game.inst.getScene(), "loadLevel");
-        level.addComponent(new components.LoadLevelComponent());
-        level.kill();
+        var level = new InitGame();
+        level.loadLevel(this.scene);
     }
 
     private function initSystems()
     {
-        // active systems
+        // Characters
         allSystems.add(new PositionSystem());
-        allSystems.add(new MovementSystem());
+        //allSystems.add(new MovementSystem());
         allSystems.add(new TileSystem());
         allSystems.add(new ScaleSystem());
         allSystems.add(new ColorSystem());
-        allSystems.add(new LoadLevelSystem());
+
+        // Input
+        allSystems.add(new EmitInputSystem());
+        allSystems.add(new ProcessInputSystem());
     }
 
     public function refreshSystems()
@@ -118,10 +120,5 @@ class Game extends hxd.App
         {
             system.fixedUpdate();
         }
-    }
-
-    public function getScene():Scene
-    {
-        return this.scene;   
     }
 }
