@@ -1,3 +1,4 @@
+import components.GameStateComponent;
 import h2d.Scene;
 import dig.utils.*;
 import systems.*;
@@ -16,6 +17,7 @@ class Game extends hxd.App
     public static var fixedTimer:FixedTimer;
 
     public var scene:Scene;
+    public var gameState:Const.GameState;
     public var hud:Hud;
     public var grid:Grid<Entity>;
     public var gridOriginVector:Vector2;
@@ -35,6 +37,10 @@ class Game extends hxd.App
 
     override function init()
     {
+        // init
+        var gameStateEntity = new Entity(Game.inst.s2d, "gameState" +hxd.Timer.frameCount);
+        gameStateEntity.addComponent(new components.GameStateComponent(Const.GameState.Init));
+
         // fixed timer
         fixedTimer = new FixedTimer(Std.int(fixedDeltaTime * 1000));
         fixedTimer.hooks.add(this.fixedUpdate);
@@ -52,6 +58,9 @@ class Game extends hxd.App
         gridOriginVector = new Vector2(s2d.width/2 - Const.cellSize*Const.boardWith/2, s2d.height/2 -Const.cellSize*Const.boardHeight/2);
         var level = new InitGame();
         level.loadLevel(this.scene);
+
+        // Play
+        cast(gameStateEntity.getComponent("GameStateComponent"), GameStateComponent).gameState = Const.GameState.Play;
     }
 
     private function initSystems()

@@ -1,3 +1,10 @@
+enum GameState
+{
+    Init;
+    Play;
+    Menu;
+}
+
 enum Team
 {
     Team1;
@@ -27,6 +34,8 @@ enum Command
 {
     Validate;
     Cancel;
+    Up;
+    Down;
 }
 
 class Const
