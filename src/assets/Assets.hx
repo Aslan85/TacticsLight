@@ -17,6 +17,7 @@ class Assets
     // Board Tiles
 	public static var t_squareSelect : h2d.Tile;
 	public static var t_squareWhite : h2d.Tile;
+	public static var t_squareMovable : h2d.Tile;
 
     public static function init()
     {
@@ -35,5 +36,6 @@ class Assets
         // Board Tiles
         t_squareSelect = hxd.Res.tiles.square_select.toTile();
         t_squareWhite = hxd.Res.tiles.square_white.toTile();
+		t_squareMovable = hxd.Res.tiles.square_movable.toTile();
     }
 }

@@ -8,7 +8,10 @@ class ScaleSystem extends dig.ecs.System
     public override function refreshEntities(entities:List<Entity>):Void
     {
         scaleEntities = Game.allEntities.filter(function(e) return e.hasComponent("ScaleComponent"));
-        scale();
+        if(scaleEntities.length > 0)
+        {
+            scale();
+        }
     }
 
     private function scale():Void
@@ -18,7 +21,8 @@ class ScaleSystem extends dig.ecs.System
             var s = cast(entity.getComponent("ScaleComponent"), components.ScaleComponent);
             entity.obj.scaleX = s.sx;
             entity.obj.scaleY = s.sy;
-            entity.removeComponentByName("ScaleComponent");
+            entity.removeComponentByName("ScaleComponent", false);
         }
+        Game.inst.refreshSystems();
     }
 }

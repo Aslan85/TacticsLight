@@ -8,7 +8,10 @@ class ColorSystem extends dig.ecs.System
     public override function refreshEntities(entities:List<Entity>):Void
     {
         colorEntities = Game.allEntities.filter(function(e) return e.hasComponent("ColorComponent") && e.hasComponent("TileComponent"));
-        colorize();
+        if(colorEntities.length > 0)
+        {
+            colorize();
+        }
     }
 
     private function colorize():Void
@@ -17,7 +20,8 @@ class ColorSystem extends dig.ecs.System
         {
             var c = cast(entity.getComponent("ColorComponent"), components.ColorComponent);
             entity.bmp.color = c.color;
-            entity.removeComponentByName("ColorComponent");
+            entity.removeComponentByName("ColorComponent", false);
         }
+        Game.inst.refreshSystems();
     }
 }

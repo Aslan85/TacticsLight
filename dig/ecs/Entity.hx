@@ -19,25 +19,31 @@ class Entity
         Game.allEntities.add(this);
     }
 
-    public function addComponent(c:Component)
+    public function addComponent(c:Component, refresh=true)
     {
         trace("add component " +c.name +" to " +this.name);
         components.add(c);
 
-        Game.inst.refreshSystems();
+        if(refresh)
+        {
+            Game.inst.refreshSystems();
+        }
     }
 
-    public function removeComponent(c:Component)
+    public function removeComponent(c:Component, refresh=true)
     {
         trace("remove component " +c.name +" to " +this.name);
         components.remove(c);
 
-        Game.inst.refreshSystems();
+        if(refresh)
+        {
+            Game.inst.refreshSystems();
+        }
     }
 
-    public function removeComponentByName(name:String)
+    public function removeComponentByName(name:String, refresh=true)
     {
-        removeComponent(cast(getComponent(name), Component));
+        removeComponent(cast(getComponent(name), Component), refresh);
     }
 
     public function getComponent(name:String):Component
@@ -67,8 +73,12 @@ class Entity
 
     public function kill()
     {
+        this.bmp.remove();
+        this.obj.remove();
+
         Game.allEntities.remove(this);
         Game.inst.refreshSystems();
+
         trace("Kill Entity : " +name);
     }
 }

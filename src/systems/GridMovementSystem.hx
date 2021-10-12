@@ -33,7 +33,11 @@ class GridMovementSystem extends dig.ecs.System
                 p.x = nextPos.x*Const.cellSize +Game.inst.gridOriginVector.x;
                 p.y = nextPos.y*Const.cellSize +Game.inst.gridOriginVector.y;
             }
-            entity.removeComponentByName("DirectionComponent");
+            entity.removeComponentByName("DirectionComponent", false);
+        }
+        if(movingEntities.length > 0)
+        {
+            Game.inst.refreshSystems();
         }
     }
 }

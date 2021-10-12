@@ -48,7 +48,7 @@ class InitGame
         // load pawns Team 2
         for(i in 0...5)
         {
-            var pawn = new Entity(s2d, "pawn_team1_" +i);
+            var pawn = new Entity(s2d, "pawn_team2_" +i);
             var cellPos = cast(Game.inst.grid.GetGridObject(Game.inst.grid.GetWidth()-1, i).getComponent("PositionComponent"), PositionComponent);
             pawn.addComponent(new PositionComponent(cellPos.x, cellPos.y));
             pawn.addComponent(new TileComponent(Assets.c_pikeman));
