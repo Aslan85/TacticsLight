@@ -1,3 +1,4 @@
+import assets.Assets;
 import dig.utils.*;
 import dig.ecs.*;
 import components.*;
@@ -15,7 +16,7 @@ class InitGame
         {
             var cell = new Entity(s2d, "cell_" +x +"_" +y);
             cell.addComponent(new PositionComponent(x *Const.cellSize +Game.inst.gridOriginVector.x, y*Const.cellSize +Game.inst.gridOriginVector.y));
-            cell.addComponent(new TileComponent(hxd.Res.square_white.toTile()));
+            cell.addComponent(new TileComponent(Assets.t_squareWhite));
 
             var colorWhite:h3d.Vector = new h3d.Vector(0.9, 0.9, 0.9, 1);
             var colorBlack:h3d.Vector = new h3d.Vector(0.2, 0.2, 0.2, 1); 
@@ -37,9 +38,10 @@ class InitGame
             var pawn = new Entity(s2d, "pawn_team1_" +i);
             var cellPos = cast(Game.inst.grid.GetGridObject(0, i).getComponent("PositionComponent"), PositionComponent);
             pawn.addComponent(new PositionComponent(cellPos.x, cellPos.y));
-            pawn.addComponent(new TileComponent(hxd.Res.c_bowman.toTile()));
+            pawn.addComponent(new TileComponent(Assets.c_bowman));
             pawn.addComponent(new ColorComponent(new h3d.Vector(0.9, 0.2, 0.2, 1)));
             pawn.addComponent(new TeamComponent(Const.Team.Team1));
+            pawn.addComponent(new AttributesComponent(10, 10, new Vector2(1, 2)));
             pawn.addComponent(new ActComponent());
         }
 
@@ -49,16 +51,17 @@ class InitGame
             var pawn = new Entity(s2d, "pawn_team1_" +i);
             var cellPos = cast(Game.inst.grid.GetGridObject(Game.inst.grid.GetWidth()-1, i).getComponent("PositionComponent"), PositionComponent);
             pawn.addComponent(new PositionComponent(cellPos.x, cellPos.y));
-            pawn.addComponent(new TileComponent(hxd.Res.c_pikeman.toTile()));
+            pawn.addComponent(new TileComponent(Assets.c_pikeman));
             pawn.addComponent(new ColorComponent(new h3d.Vector(0.2, 0.2, 0.9, 1)));
             pawn.addComponent(new TeamComponent(Const.Team.Team2));
+            pawn.addComponent(new AttributesComponent(10, 10, new Vector2(1, 2)));
         }
 
         // load select cursor
         var selectCursor = new Entity(s2d, "select_cursor");
         var cellPos = cast(Game.inst.grid.GetGridObject(0, 0).getComponent("PositionComponent"), PositionComponent);
         selectCursor.addComponent(new PositionComponent(cellPos.x, cellPos.y));
-        selectCursor.addComponent(new TileComponent(hxd.Res.square_select.toTile()));
+        selectCursor.addComponent(new TileComponent(Assets.t_squareSelect));
         selectCursor.addComponent(new ColorComponent(new h3d.Vector(0.1, 0.5, 0.1, 1)));
         selectCursor.addComponent(new CursorSelectComponent());
     }

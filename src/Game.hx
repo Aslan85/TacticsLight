@@ -1,4 +1,4 @@
-import components.GameStateComponent;
+import assets.Assets;
 import h2d.Scene;
 import dig.utils.*;
 import systems.*;
@@ -41,6 +41,9 @@ class Game extends hxd.App
         var gameStateEntity = new Entity(Game.inst.s2d, "gameState" +hxd.Timer.frameCount);
         gameStateEntity.addComponent(new components.GameStateComponent(Const.GameState.Init));
 
+        // load assets
+        Assets.init();
+
         // fixed timer
         fixedTimer = new FixedTimer(Std.int(fixedDeltaTime * 1000));
         fixedTimer.hooks.add(this.fixedUpdate);
@@ -60,7 +63,7 @@ class Game extends hxd.App
         level.loadLevel(this.scene);
 
         // Play
-        cast(gameStateEntity.getComponent("GameStateComponent"), GameStateComponent).gameState = Const.GameState.Play;
+        cast(gameStateEntity.getComponent("GameStateComponent"), components.GameStateComponent).gameState = Const.GameState.Play;
     }
 
     private function initSystems()
