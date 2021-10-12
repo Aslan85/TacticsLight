@@ -23,9 +23,9 @@ class EmitInputSystem extends dig.ecs.System
         {
             ctrl = Const.Control.Left;
         }
-        else if (hxd.Key.isPressed(hxd.Key.ENTER))
+        else if (hxd.Key.isPressed(hxd.Key.ENTER) || hxd.Key.isPressed(hxd.Key.SPACE))
         {
-            ctrl = Const.Control.Check;
+            ctrl = Const.Control.Validate;
         }
         else if (hxd.Key.isPressed(hxd.Key.BACKSPACE))
         {
@@ -34,7 +34,7 @@ class EmitInputSystem extends dig.ecs.System
 
         if(ctrl != Const.Control.Nothing)
         {
-            var entity = new Entity(Game.inst.s2d, "input" +hxd.Timer.frameCount);
+            var entity = new Entity(Game.inst.s2d, "input_" +hxd.Timer.frameCount);
             entity.addComponent(new components.InputComponent(ctrl));
         }
     }

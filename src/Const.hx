@@ -11,7 +11,7 @@ enum Control
     Down;
     Right;
     Left;
-    Check;
+    Validate;
     Cancel;
 }
 
@@ -21,6 +21,12 @@ enum Direction
     Down;
     Right;
     Left;
+}
+
+enum Command
+{
+    Validate;
+    Cancel;
 }
 
 class Const

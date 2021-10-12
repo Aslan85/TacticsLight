@@ -1,6 +1,5 @@
 package systems;
-import components.DirectionComponent;
-import components.InputComponent;
+import components.*;
 import dig.ecs.*;
 
 class ProcessInputSystem extends dig.ecs.System
@@ -30,8 +29,12 @@ class ProcessInputSystem extends dig.ecs.System
                 case Const.Control.Down: cursorSelectEntities.first().addComponent(new DirectionComponent(Const.Direction.Down));
                 case Const.Control.Right: cursorSelectEntities.first().addComponent(new DirectionComponent(Const.Direction.Right));
                 case Const.Control.Left: cursorSelectEntities.first().addComponent(new DirectionComponent(Const.Direction.Left));
-                case Const.Control.Check: trace("Check");
-                case Const.Control.Cancel: trace("Cancel");
+                case Const.Control.Validate:
+                    var newEntity = new Entity(Game.inst.s2d, "command_" +hxd.Timer.frameCount);
+                    newEntity.addComponent(new components.CommandComponent(Const.Command.Validate));
+                case Const.Control.Cancel:
+                    var newEntity = new Entity(Game.inst.s2d, "command_" +hxd.Timer.frameCount);
+                    newEntity.addComponent(new components.CommandComponent(Const.Command.Cancel));
                 case _: trace("Nothing");
             }
             entity.kill();
