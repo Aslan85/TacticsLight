@@ -32,7 +32,7 @@ class ProcessCommandSystem extends dig.ecs.System
                         var cursorPos = cast(cursorSelectEntities.first().getComponent("PositionComponent"), PositionComponent);
                         var g = Game.inst.grid;
                         var tileOnCursor = g.GetGridObjectFromWorldPosition(new Vector2(cursorPos.x, cursorPos.y));
-                        var teamEntities = Game.allEntities.filter(function(e) return e.hasComponent("TeamComponent") && e.hasComponent("TeamComponent")); // TODO : add filter on playing team
+                        var teamEntities = Game.allEntities.filter(function(e) return e.hasComponent("TeamComponent") && e.hasComponent("ActComponent"));
                          
                         var selectedEntity = teamEntities.filter(function(c) return
                                 cast(c.getComponent("PositionComponent"), PositionComponent).x == cast(tileOnCursor.getComponent("PositionComponent"), PositionComponent).x  &&

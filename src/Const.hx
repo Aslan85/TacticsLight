@@ -5,6 +5,15 @@ enum GameState
     Menu;
 }
 
+enum abstract TileLayers(Int) to Int
+{
+    var Background = 0;
+    var Board = 1;
+    var TileSelect = 2;
+    var Cursor = 3;
+    var Unit = 4;
+}
+
 enum Team
 {
     Team1;

@@ -17,6 +17,7 @@ class TileSystem extends dig.ecs.System
         {
             oldEntities.add(ent);
         }
+        fixZOrder();
     }
 
     private function updateTile():Void
@@ -58,6 +59,27 @@ class TileSystem extends dig.ecs.System
         for(entity in entities)
         {
             entity.bmp.remove();
+        }
+    }
+
+    private function fixZOrder()
+    {
+        var arrayEntities = tileEntities.array();
+        arrayEntities.sort(function(a:Entity, b:Entity)
+        {
+            if(cast(a.getComponent("TileComponent"), components.TileComponent).layer < cast(b.getComponent("TileComponent"), components.TileComponent).layer) return -1;
+            else if(cast(a.getComponent("TileComponent"), components.TileComponent).layer < cast(b.getComponent("TileComponent"), components.TileComponent).layer) return 1;
+            else return 0;
+        });
+ 
+        for(e in arrayEntities)
+        {
+            Game.inst.scene.removeChild(e.obj);
+        }
+         
+        for(e in arrayEntities)
+        {
+            Game.inst.scene.addChild(e.obj);
         }
     }
 }
