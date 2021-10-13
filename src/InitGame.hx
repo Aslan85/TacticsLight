@@ -41,7 +41,7 @@ class InitGame
             pawn.addComponent(new TileComponent(Assets.c_bowman, Const.TileLayers.Unit));
             pawn.addComponent(new ColorComponent(new h3d.Vector(0.9, 0.2, 0.2, 1)));
             pawn.addComponent(new TeamComponent(Const.Team.Team1));
-            pawn.addComponent(new AttributesComponent(10, 10, new Vector2(1, 2)));
+            pawn.addComponent(new AttributesComponent(10, 10, 10, 2, new Vector2(1, 2)));
             pawn.addComponent(new ActComponent());
         }
 
@@ -54,7 +54,7 @@ class InitGame
             pawn.addComponent(new TileComponent(Assets.c_pikeman, Const.TileLayers.Unit));
             pawn.addComponent(new ColorComponent(new h3d.Vector(0.2, 0.2, 0.9, 1)));
             pawn.addComponent(new TeamComponent(Const.Team.Team2));
-            pawn.addComponent(new AttributesComponent(10, 10, new Vector2(1, 2)));
+            pawn.addComponent(new AttributesComponent(10, 10, 10, 2, new Vector2(1, 2)));
         }
 
         // load select cursor

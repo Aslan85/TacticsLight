@@ -64,10 +64,11 @@ class SelectedUnitSystem extends dig.ecs.System
         {
             var entPos = cast(entity.getComponent("PositionComponent"), PositionComponent);
             var gridPosition = Game.inst.grid.GetGridPositionFromWorldPosition(new Vector2(entPos.x, entPos.y));
-            var neighborTiles = Game.inst.grid.GetNeighbourList(new Vector2(gridPosition.x, gridPosition.y));
+            var attribute = cast(entity.getComponent("AttributesComponent"), AttributesComponent);
+            var tilesInRange = Game.inst.grid.GetCellsInRange(new Vector2(gridPosition.x, gridPosition.y), 1, attribute.moveRange);
 
             // Todo select tiles with range
-            for(nTiles in neighborTiles)
+            for(nTiles in tilesInRange)
             {
                 var movableTiles = new Entity(Game.inst.scene, "movableTiles_" +nTiles.name);
                 var cellPos = cast(nTiles.getComponent("PositionComponent"), PositionComponent);
@@ -75,6 +76,8 @@ class SelectedUnitSystem extends dig.ecs.System
                 movableTiles.addComponent(new MovableTileComponent(), false);
                 createdMovableTiles = true;
             }
+
+            // Todo show attackable tiles
         }
     }
 
