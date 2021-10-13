@@ -28,12 +28,13 @@ class ProcessCommandSystem extends dig.ecs.System
                 switch(c.command)
                 {
                     case Validate:
-                        // Show moving area for selected entity
+                        // Detect where is the cursor
                         var cursorPos = cast(cursorSelectEntities.first().getComponent("PositionComponent"), PositionComponent);
                         var g = Game.inst.grid;
                         var tileOnCursor = g.GetGridObjectFromWorldPosition(new Vector2(cursorPos.x, cursorPos.y));
+
+                        // Check if click on unit and show moving/attack area
                         var teamEntities = Game.allEntities.filter(function(e) return e.hasComponent("TeamComponent") && e.hasComponent("ActComponent"));
-                         
                         var selectedEntity = teamEntities.filter(function(c) return
                                 cast(c.getComponent("PositionComponent"), PositionComponent).x == cast(tileOnCursor.getComponent("PositionComponent"), PositionComponent).x  &&
                                 cast(c.getComponent("PositionComponent"), PositionComponent).y == cast(tileOnCursor.getComponent("PositionComponent"), PositionComponent).y)
@@ -42,6 +43,20 @@ class ProcessCommandSystem extends dig.ecs.System
                         {
                             cleanOldSelection();
                             selectedEntity.addComponent(new SelectedUnitComponent());
+                        }
+
+                        // Check if click on movable tiles
+                        else
+                        {
+                            var movableTiles = Game.allEntities.filter(function(e) return e.hasComponent("MovableTileComponent"));
+                            var selectMovableEntity = movableTiles.filter(function(c) return
+                                    cast(c.getComponent("PositionComponent"), PositionComponent).x == cast(tileOnCursor.getComponent("PositionComponent"), PositionComponent).x  &&
+                                    cast(c.getComponent("PositionComponent"), PositionComponent).y == cast(tileOnCursor.getComponent("PositionComponent"), PositionComponent).y)
+                                    .first();
+                            if(selectMovableEntity != null)
+                            {
+                                selectMovableEntity.addComponent(new ActionToThisTileComponent());
+                            }
                         }
                     case Cancel:
                         cleanOldSelection();

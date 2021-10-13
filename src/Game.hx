@@ -82,6 +82,8 @@ class Game extends hxd.App
         allSystems.add(new GridMovementSystem());
         allSystems.add(new ProcessCommandSystem());
         allSystems.add(new SelectedUnitSystem());
+        allSystems.add(new ShowActionTileSystem());
+        allSystems.add(new ActionTileSystem());
     }
 
     public function refreshSystems()

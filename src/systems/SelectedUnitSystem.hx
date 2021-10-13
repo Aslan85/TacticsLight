@@ -72,8 +72,6 @@ class SelectedUnitSystem extends dig.ecs.System
                 var movableTiles = new Entity(Game.inst.scene, "movableTiles_" +nTiles.name);
                 var cellPos = cast(nTiles.getComponent("PositionComponent"), PositionComponent);
                 movableTiles.addComponent(new PositionComponent(cellPos.x, cellPos.y), false);
-                movableTiles.addComponent(new TileComponent(Assets.t_squareMovable, Const.TileLayers.TileSelect), false);
-                movableTiles.addComponent(new ColorComponent(new h3d.Vector(0.2, 0.8, 0.2, 1)), false);
                 movableTiles.addComponent(new MovableTileComponent(), false);
                 createdMovableTiles = true;
             }
@@ -84,7 +82,11 @@ class SelectedUnitSystem extends dig.ecs.System
     {
         for(mEnt in Game.allEntities.filter(function(e) return e.hasComponent("MovableTileComponent")))
         {
-            mEnt.kill();
+            mEnt.removeComponentByName("MovableTileComponent", false);
+        }
+        for(aEnt in Game.allEntities.filter(function(e) return e.hasComponent("AttackableTileComponent")))
+        {
+            aEnt.removeComponentByName("AttackableTileComponent", false);
         }
     }
 }

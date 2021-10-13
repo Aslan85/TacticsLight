@@ -71,14 +71,16 @@ class Entity
         return components.length;
     }
 
-    public function kill()
+    public function kill(refresh=true)
     {
         this.bmp.remove();
         this.obj.remove();
 
         Game.allEntities.remove(this);
-        Game.inst.refreshSystems();
-
+        if(refresh)
+        {
+            Game.inst.refreshSystems();
+        }
         trace("Kill Entity : " +name);
     }
 }
