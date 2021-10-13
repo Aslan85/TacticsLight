@@ -41,7 +41,7 @@ class InitGame
             pawn.addComponent(new TileComponent(Assets.c_bowman, Const.TileLayers.Unit));
             pawn.addComponent(new ColorComponent(new h3d.Vector(0.9, 0.2, 0.2, 1)));
             pawn.addComponent(new TeamComponent(Const.Team.Team1));
-            pawn.addComponent(new AttributesComponent(10, 10, 10, 2, new Vector2(1, 2)));
+            pawn.addComponent(new AttributesComponent(10, 10, 10, 2, new Vector2(3, 4)));
             pawn.addComponent(new ActComponent());
         }
 
@@ -54,7 +54,7 @@ class InitGame
             pawn.addComponent(new TileComponent(Assets.c_pikeman, Const.TileLayers.Unit));
             pawn.addComponent(new ColorComponent(new h3d.Vector(0.2, 0.2, 0.9, 1)));
             pawn.addComponent(new TeamComponent(Const.Team.Team2));
-            pawn.addComponent(new AttributesComponent(10, 10, 10, 2, new Vector2(1, 2)));
+            pawn.addComponent(new AttributesComponent(10, 10, 10, 2, new Vector2(3, 4)));
         }
 
         // load select cursor
@@ -62,7 +62,7 @@ class InitGame
         var cellPos = cast(Game.inst.grid.GetGridObject(0, 0).getComponent("PositionComponent"), PositionComponent);
         selectCursor.addComponent(new PositionComponent(cellPos.x, cellPos.y));
         selectCursor.addComponent(new TileComponent(Assets.t_squareSelect, Const.TileLayers.Cursor));
-        selectCursor.addComponent(new ColorComponent(new h3d.Vector(0.8, 0.3, 0.1, 1)));
+        selectCursor.addComponent(new ColorComponent(new h3d.Vector(0.3, 0.3, 0.8, 1)));
         selectCursor.addComponent(new CursorSelectComponent());
     }
 }

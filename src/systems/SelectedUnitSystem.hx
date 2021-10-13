@@ -65,19 +65,47 @@ class SelectedUnitSystem extends dig.ecs.System
             var entPos = cast(entity.getComponent("PositionComponent"), PositionComponent);
             var gridPosition = Game.inst.grid.GetGridPositionFromWorldPosition(new Vector2(entPos.x, entPos.y));
             var attribute = cast(entity.getComponent("AttributesComponent"), AttributesComponent);
-            var tilesInRange = Game.inst.grid.GetCellsInRange(new Vector2(gridPosition.x, gridPosition.y), 1, attribute.moveRange);
-
-            // Todo select tiles with range
-            for(nTiles in tilesInRange)
+            var allUnits = Game.allEntities.filter(function(e) return e.hasComponent("TeamComponent"));
+            
+            // moving tiles
+            var movingtilesInRange = Game.inst.grid.GetCellsInRange(new Vector2(gridPosition.x, gridPosition.y), 1, attribute.moveRange);
+            for(mTiles in movingtilesInRange)
             {
-                var movableTiles = new Entity(Game.inst.scene, "movableTiles_" +nTiles.name);
-                var cellPos = cast(nTiles.getComponent("PositionComponent"), PositionComponent);
+                // do not create movable tiles if entity are in range
+                var createMovable = true;
+                for(aU in allUnits)
+                {
+                    if( cast(aU.getComponent("PositionComponent"),PositionComponent).x == cast(mTiles.getComponent("PositionComponent"),PositionComponent).x &&
+                        cast(aU.getComponent("PositionComponent"),PositionComponent).y == cast(mTiles.getComponent("PositionComponent"),PositionComponent).y)
+                    {
+                        createMovable = false;
+                    }
+                }
+                if(!createMovable)
+                {
+                    continue;
+                }
+
+                // create movable tiles
+                var movableTiles = new Entity(Game.inst.scene, "movableTiles_" +mTiles.name);
+                var cellPos = cast(mTiles.getComponent("PositionComponent"), PositionComponent);
                 movableTiles.addComponent(new PositionComponent(cellPos.x, cellPos.y), false);
                 movableTiles.addComponent(new MovableTileComponent(), false);
                 createdMovableTiles = true;
             }
 
-            // Todo show attackable tiles
+            /*
+            // attackable tiles
+            var attackabletilesInRange = Game.inst.grid.GetCellsInRange(new Vector2(gridPosition.x, gridPosition.y), Math.floor(attribute.attackRange.x), Math.floor(attribute.attackRange.y));
+            for(aTiles in attackabletilesInRange)
+            {
+                var movableTiles = new Entity(Game.inst.scene, "attackableTiles_" +aTiles.name);
+                var cellPos = cast(aTiles.getComponent("PositionComponent"), PositionComponent);
+                movableTiles.addComponent(new PositionComponent(cellPos.x, cellPos.y), false);
+                movableTiles.addComponent(new AttackableTileComponent(), false);
+                createdMovableTiles = true;
+            }
+            */
         }
     }
 
