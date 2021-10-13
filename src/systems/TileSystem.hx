@@ -17,7 +17,6 @@ class TileSystem extends dig.ecs.System
         {
             oldEntities.add(ent);
         }
-        fixZOrder();
     }
 
     private function updateTile():Void
@@ -40,8 +39,21 @@ class TileSystem extends dig.ecs.System
             }
         }
 
-        addTile(addedTileEntities);
-        removeTile(removedTileEntities);
+        var didChange = false;
+        if(!addedTileEntities.isEmpty())
+        {
+            addTile(addedTileEntities);
+            didChange = true;
+        }
+        if(!removedTileEntities.isEmpty())
+        {
+            removeTile(removedTileEntities);
+            didChange = true;
+        }
+        if(didChange)
+        {
+            fixZOrder();
+        }
     }
 
     private function addTile(entities:List<Entity>):Void
