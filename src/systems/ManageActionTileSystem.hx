@@ -3,7 +3,7 @@ import dig.ecs.*;
 import components.*;
 using Lambda;
 
-class ShowActionTileSystem extends dig.ecs.System
+class ManageActionTileSystem extends dig.ecs.System
 {
     var oldEntities:List<Entity> = new List<Entity>();
     var actiontileEntities:List<Entity> = new List<Entity>();
