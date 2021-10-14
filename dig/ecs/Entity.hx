@@ -2,7 +2,7 @@ package dig.ecs;
 
 class Entity
 {
-    public var components = new List<Component>();
+    public var components:haxe.ds.Map<String, Component>;
     public var scene:h2d.Scene;
     public var obj:h2d.Object;
     public var bmp:h2d.Bitmap;
@@ -14,15 +14,15 @@ class Entity
         this.scene = scene;
         this.name = name;
 
+        components = new haxe.ds.Map<String, Component>();
         obj = new h2d.Object(scene);
-
         Game.allEntities.add(this);
     }
 
     public function addComponent(c:Component, refresh=true)
     {
         trace("add component " +c.name +" to " +this.name);
-        components.add(c);
+        components[c.name] = c;
 
         if(refresh)
         {
@@ -33,7 +33,7 @@ class Entity
     public function removeComponent(c:Component, refresh=true)
     {
         trace("remove component " +c.name +" to " +this.name);
-        components.remove(c);
+        components.remove(c.name);
 
         if(refresh)
         {
@@ -48,27 +48,21 @@ class Entity
 
     public function getComponent(name:String):Component
     {
-        var component = components.filter(function(c) return c.name == name);
-        if(component.length > 0)
-        {
-            return component.first();
-        }
-        return null;
+        return components[name];
     }
 
     public function hasComponent(name:String):Bool
     {
-        var component = components.filter(function(c) return c.name == name);
-        if(component.length > 0)
-        {
-            return true;
-        }
-        return false;
+        return components[name] != null;
     }
 
     public function howManyComponents():Int
     {
-        return components.length;
+        var howMany = 0;
+        for (c in components) {
+            howMany++;
+        }
+        return howMany;
     }
 
     public function kill(refresh=true)
