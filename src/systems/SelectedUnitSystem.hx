@@ -1,6 +1,5 @@
 package systems;
 import dig.utils.Vector2;
-import assets.Assets;
 import dig.ecs.*;
 import components.*;
 using Lambda;
@@ -68,7 +67,14 @@ class SelectedUnitSystem extends dig.ecs.System
             var allUnits = Game.allEntities.filter(function(e) return e.hasComponent("TeamComponent"));
             
             // moving tiles
-            var movingtilesInRange = Game.inst.grid.GetCellsInRange(new Vector2(gridPosition.x, gridPosition.y), 1, attribute.moveRange);
+            //var movingtilesInRange = Game.inst.grid.GetCellsInRange(new Vector2(gridPosition.x, gridPosition.y), 1, attribute.moveRange);
+            var obstaclesList:List<Vector2> = new List<Vector2>();
+            for(aU in allUnits)
+            {
+                var pos = cast(aU.getComponent("PositionComponent"), PositionComponent);
+                obstaclesList.add(Game.inst.grid.GetGridPositionFromWorldPosition(new Vector2(pos.x, pos.y)));
+            }
+            var movingtilesInRange = Game.inst.grid.GetCellsInRangeWithConstraints(new Vector2(gridPosition.x, gridPosition.y), obstaclesList, 1, attribute.moveRange);
             for(mTiles in movingtilesInRange)
             {
                 // do not create movable tiles if entity are in range

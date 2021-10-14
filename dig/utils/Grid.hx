@@ -197,6 +197,68 @@ class Grid<TGridObject>
         return move_range;
     }
 
+    public function GetCellsInRangeWithConstraints(originGridPosition:Vector2, gridObstacles:List<Vector2>, rangeMin:Int, rangeMax:Int):List<TGridObject>
+    {
+        var gridPosIntX = Math.floor(originGridPosition.x);
+        var gridPosIntY = Math.floor(originGridPosition.y);
+
+        var stack:List<TGridObject> = new List<TGridObject>();
+        var move_range:List<TGridObject> = new List<TGridObject>();
+        move_range.add(gridArray[gridPosIntX][gridPosIntY]);
+        var dist:haxe.ds.Map<String, Int> = new Map<String, Int>(); // dictionary distance from origin
+        for(tile in GetNeighbourList(originGridPosition))
+        {
+            dist[Std.string(tile)] = 1;
+            stack.add(tile);
+        }
+
+        while(stack.length > 0)
+        {
+            var tile = stack.first();
+            stack.remove(tile);
+
+            // add obstacles constraints
+            var hasObstacles = false;
+            for(o in gridObstacles)
+            {
+                if(gridArray[Math.floor(o.x)][Math.floor(o.y)] == tile)
+                {
+                    hasObstacles = true;
+                    break;
+                }
+            }
+            if(hasObstacles)
+            {
+                continue;
+            }
+
+            // add tile in move_range list
+            if(move_range.filter(function f(e) return e == tile).first() == null)
+            {
+                move_range.add(tile);
+                if(dist[Std.string(tile)] < rangeMax)
+                {
+                    for(neighbor in GetNeighbourList(GetGridPositionFromGridObject(tile)))
+                    {
+                        if(move_range.filter(function f(e) return e == neighbor).first() == null)
+                        {
+                            dist[Std.string(neighbor)] = dist[Std.string(tile)] +1;
+                            stack.add(neighbor);
+                        }
+                    }
+                }
+            }
+        }
+        // remove min range distance
+        for(cell in move_range)
+        {
+            if(dist[Std.string(cell)] < rangeMin)
+            {
+                move_range.remove(cell);
+            }
+        }
+        return move_range;
+    }
 
     public function IsOnGrid(x:Int, y:Int):Bool
     {
