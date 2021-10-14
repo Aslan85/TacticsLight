@@ -14,12 +14,6 @@ enum abstract TileLayers(Int) to Int
     var Unit = 4;
 }
 
-enum Team
-{
-    Team1;
-    Team2;
-}
-
 enum Control
 {
     Nothing;
@@ -45,6 +39,21 @@ enum Command
     Cancel;
     Up;
     Down;
+}
+
+enum Team
+{
+    Team1;
+    Team2;
+}
+
+enum Elements
+{
+    Fire;
+    Earth;
+    Water;
+    Light;
+    Darkness;
 }
 
 class Const
